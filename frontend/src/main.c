@@ -3,11 +3,13 @@
  * Sistema de Análise de Hemograma com Machine Learning
  */
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "ui.h"
 #include "communication.h"
 #include "validators.h"
+#include "gui.h"
 
 /**
  * Executa a análise completa de hemograma
@@ -82,46 +84,20 @@ static void show_about(void) {
  * Função principal
  */
 int main(void) {
-    int option;
-    int running = 1;
-    
-    // Inicializa comunicação
+
+    // Inicializa comunicação com backend Python
     if (!comm_init()) {
         printf("[ERRO FATAL] Falha ao inicializar sistema de comunicacao\n");
         return 1;
     }
-    
-    // Loop principal
-    while (running) {
-        clear_screen();
-        print_header();
-        
-        option = show_main_menu();
-        
-        switch (option) {
-            case 1:
-                run_analysis();
-                break;
-            
-            case 2:
-                show_about();
-                break;
-            
-            case 3:
-                printf("\nEncerrando o sistema...\n");
-                running = 0;
-                break;
-            
-            default:
-                printf("\n[ERRO] Opcao invalida. Tente novamente.\n");
-                wait_for_enter();
-                break;
-        }
-    }
-    
-    // Limpa recursos
+
+    // Inicia interface gráfica
+    start_gui();
+
+    // Finaliza comunicação
     comm_cleanup();
-    
+
     printf("\nObrigado por usar o MED IA!\n");
+
     return 0;
 }

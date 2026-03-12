@@ -8,7 +8,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -O2
 
 # Flags de linkagem (Windows)
-LDFLAGS_WIN = -lws2_32
+LDFLAGS_WIN = -lraylib -lopengl32 -lgdi32 -lwinmm -lws2_32
 
 # Diretórios
 SRC_DIR = src
@@ -20,6 +20,7 @@ TARGET = hemograma_app
 # Arquivos fonte
 SOURCES = $(SRC_DIR)/main.c \
           $(SRC_DIR)/ui.c \
+		  $(SRC_DIR)/gui.c \
           $(SRC_DIR)/communication.c \
           $(SRC_DIR)/validators.c
 
